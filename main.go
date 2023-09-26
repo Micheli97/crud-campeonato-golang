@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"github.com/Micheli97/crud-campeonato-golang/router"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+
+	router.SetupRouter()
+
 }
