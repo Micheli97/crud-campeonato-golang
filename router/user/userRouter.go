@@ -1,14 +1,17 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Micheli97/crud-campeonato-golang/handler/user"
+	"github.com/gin-gonic/gin"
+)
 
 // UserRouters rotas usuário
 func UserRouters(router *gin.RouterGroup) {
 
 	routerGroup := router.Group("/user")
 
-	routerGroup.GET("/")
+	routerGroup.GET("/", user.GetUserHandler)
 
-	routerGroup.POST("/")
+	routerGroup.POST("/", user.CreateUserHandler)
 
 }
