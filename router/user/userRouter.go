@@ -14,4 +14,8 @@ func UserRouters(router *gin.RouterGroup) {
 
 	routerGroup.POST("/", user.CreateUserHandler)
 
+	routerGroup.PUT("/", user.UpdateUserHandler)
+
+	routerGroup.DELETE("/", user.DeleteUserHandler)
+
 }
