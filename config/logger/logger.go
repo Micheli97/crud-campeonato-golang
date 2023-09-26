@@ -30,7 +30,6 @@ func init() {
 
 	log, _ = logConfig.Build()
 }
-
 func Info(message string, tags ...zap.Field) {
 	log.Info(message, tags...)
 	log.Sync()

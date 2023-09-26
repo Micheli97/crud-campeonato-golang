@@ -3,8 +3,13 @@ package user
 import (
 	"github.com/Micheli97/crud-campeonato-golang/config/validation"
 	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
+	"github.com/Micheli97/crud-campeonato-golang/model/user"
 	"github.com/gin-gonic/gin"
 	"net/http"
+)
+
+var (
+	UserDomainInterface user.UserDomainInterface
 )
 
 // CreateUserHandler cadastra o usuário
