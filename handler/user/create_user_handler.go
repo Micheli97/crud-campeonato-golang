@@ -1,15 +1,18 @@
 package user
 
 import (
+	"github.com/Micheli97/crud-campeonato-golang/config/logger"
 	"github.com/Micheli97/crud-campeonato-golang/config/validation"
 	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
-	"github.com/Micheli97/crud-campeonato-golang/model/user"
+	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
+	user2 "github.com/Micheli97/crud-campeonato-golang/model/user"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"net/http"
 )
 
 var (
-	UserDomainInterface user.UserDomainInterface
+	UserDomainInterface user2.UserDomainInterface
 )
 
 // CreateUserHandler cadastra o usuário
@@ -19,10 +22,23 @@ func CreateUserHandler(context *gin.Context) {
 	var userRequest request.UserRequest
 
 	if err := context.ShouldBindJSON(&userRequest); err != nil {
+		logger.Error("Erro trying to validate user info", err,
+			zap.String("journey", "createUser"))
 		restErr := validation.ValidateUserError(err)
 		context.JSON(restErr.Code, restErr)
 		return
 	}
 
-	context.JSON(http.StatusCreated, "Usuário foi criado com sucesso!")
+	domain := user2.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name)
+
+	service := user.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
+		context.JSON(err.Code, err)
+	}
+
+	logger.Info("User created successfully",
+		zap.String("journey", "createUser"))
+
+	context.String(http.StatusOK, "")
 }
