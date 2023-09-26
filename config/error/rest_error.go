@@ -29,6 +29,15 @@ func NewRestErr(message, err string, code int64, causes []Causes) *RestErr {
 	}
 }
 
+// NewBadRequestError retorna um badrequest error
+func NewBadRequestError(message string) *RestErr {
+	return &RestErr{
+		Message: message,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
+	}
+}
+
 // NewUnauthorizedRequestError retorna erro de autorização
 func NewUnauthorizedRequestError(message string) *RestErr {
 	return &RestErr{
