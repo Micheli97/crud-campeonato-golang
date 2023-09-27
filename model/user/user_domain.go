@@ -3,16 +3,15 @@ package user
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"encoding/json"
-	"fmt"
 )
 
 type UserDomainInterface interface {
 	GetEmail() string
 	GetPassword() string
 	GetName() string
+
 	EncryptPassword()
-	GetJSONValue() (string, error)
+
 	SetID(id string)
 }
 
@@ -36,15 +35,6 @@ type userDomain struct {
 
 func (user *userDomain) SetID(id string) {
 	user.ID = id
-}
-
-func (user *userDomain) GetJSONValue() (string, error) {
-	b, err := json.Marshal(user)
-	if err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-	return string(b), nil
 }
 
 func (user *userDomain) GetEmail() string {
