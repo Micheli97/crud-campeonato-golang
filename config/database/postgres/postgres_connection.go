@@ -7,9 +7,13 @@ import (
 	"os"
 )
 
+var (
+	PostgressCredential = "POSTGRESS_CREDENTIAL"
+)
+
 func InitializeDatabasePostgres() {
 
-	credentialDB := os.Getenv("POSTGRESS_CREDENTIAL")
+	credentialDB := os.Getenv(PostgressCredential)
 
 	db, err := sql.Open("postgres", credentialDB)
 
