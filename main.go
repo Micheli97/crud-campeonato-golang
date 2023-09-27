@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	postgres.InitializeDatabasePostgres()
+	postgres.NewDatabasePostgres()
 	router.SetupRouter()
 
 }

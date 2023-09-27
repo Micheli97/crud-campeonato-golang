@@ -11,7 +11,7 @@ var (
 	PostgressCredential = "POSTGRESS_CREDENTIAL"
 )
 
-func InitializeDatabasePostgres() {
+func NewDatabasePostgres() (*sql.DB, error) {
 
 	credentialDB := os.Getenv(PostgressCredential)
 
@@ -19,8 +19,7 @@ func InitializeDatabasePostgres() {
 
 	if err != nil {
 		logger.Error("Erro ao abrir a conexão com o PostgreSQL:", err)
-		return
-
+		return nil, err
 	}
 
 	defer db.Close()
@@ -28,5 +27,7 @@ func InitializeDatabasePostgres() {
 	db.Ping()
 
 	logger.Info("Banco de dados iniciado....")
+
+	return db, nil
 
 }

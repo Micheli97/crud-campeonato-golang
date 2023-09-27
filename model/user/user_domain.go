@@ -3,6 +3,8 @@ package user
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
+	"fmt"
 )
 
 type UserDomainInterface interface {
@@ -10,6 +12,8 @@ type UserDomainInterface interface {
 	GetPassword() string
 	GetName() string
 	EncryptPassword()
+	GetJSONValue() (string, error)
+	SetID(id string)
 }
 
 // NewUserDomain construtor do objeto
@@ -24,9 +28,23 @@ func NewUserDomain(email, password, name string) UserDomainInterface {
 // Não pode conter informações da tag (json) porque o Domain não pode ser exportavel
 // Objetos(models response, request) junto ao controller/handler são responsáveis por comunicar com os endpoints
 type userDomain struct {
+	ID       string
 	Email    string
 	Password string
 	Name     string
+}
+
+func (user *userDomain) SetID(id string) {
+	user.ID = id
+}
+
+func (user *userDomain) GetJSONValue() (string, error) {
+	b, err := json.Marshal(user)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	return string(b), nil
 }
 
 func (user *userDomain) GetEmail() string {
