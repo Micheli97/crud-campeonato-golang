@@ -6,7 +6,7 @@ import (
 )
 
 // UpdateUserHandler retorna os dados do usuário
-func UpdateUserHandler(context *gin.Context) {
+func (userHandler *userHandlerInterface) UpdateUserHandler(context *gin.Context) {
 	context.JSON(http.StatusOK, "Usuário")
 
 }

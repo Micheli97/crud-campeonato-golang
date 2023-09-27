@@ -4,8 +4,8 @@ import (
 	"github.com/Micheli97/crud-campeonato-golang/config/logger"
 	"github.com/Micheli97/crud-campeonato-golang/config/validation"
 	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
-	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
 	user2 "github.com/Micheli97/crud-campeonato-golang/model/user"
+	"github.com/Micheli97/crud-campeonato-golang/view"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -16,7 +16,7 @@ var (
 )
 
 // CreateUserHandler cadastra o usuário
-func CreateUserHandler(context *gin.Context) {
+func (userHandler *userHandlerInterface) CreateUserHandler(context *gin.Context) {
 
 	// Objeto com os atributos necessários para fazer a criação do usuário
 	var userRequest request.UserRequest
@@ -31,14 +31,12 @@ func CreateUserHandler(context *gin.Context) {
 
 	domain := user2.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name)
 
-	service := user.NewUserDomainService()
-
-	if err := service.CreateUser(domain); err != nil {
+	if err := userHandler.service.CreateUser(domain); err != nil {
 		context.JSON(err.Code, err)
 	}
 
 	logger.Info("User created successfully",
 		zap.String("journey", "createUser"))
 
-	context.String(http.StatusOK, "")
+	context.JSON(http.StatusOK, view.ConverteToDomainResponse(domain))
 }
