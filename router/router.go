@@ -2,18 +2,13 @@ package router
 
 import (
 	"github.com/Micheli97/crud-campeonato-golang/handler/user"
-	service "github.com/Micheli97/crud-campeonato-golang/model/service/user"
 	"github.com/gin-gonic/gin"
 	"log"
 )
 
 // SetupRouter configura o servidor
-func SetupRouter() {
+func SetupRouter(userHandler user.UserHandlerInterface) {
 	router := gin.Default()
-
-	// Init dependencies
-	service := service.NewUserDomainService()
-	userHandler := user.NewUserHandlerInterface(service)
 
 	InitializeRouters(router, userHandler)
 

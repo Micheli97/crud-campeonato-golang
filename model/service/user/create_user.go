@@ -1,10 +1,10 @@
 package user
 
 import (
-	"fmt"
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
 	"github.com/Micheli97/crud-campeonato-golang/config/logger"
 	"github.com/Micheli97/crud-campeonato-golang/model/user"
+	"github.com/Micheli97/crud-campeonato-golang/model/utils"
 	"go.uber.org/zap"
 )
 
@@ -13,8 +13,9 @@ func (user *userDomainService) CreateUser(
 ) *rest_err.RestErr {
 	logger.Info("Init CreateUser handler",
 		zap.String("journey", "createUser"))
-	userDomain.EncryptPassword()
+	utils.EncryptPassword(userDomain)
 
-	fmt.Println(userDomain.GetPassword())
+	logger.Info(userDomain.GetPassword())
+
 	return nil
 }

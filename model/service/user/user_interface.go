@@ -2,14 +2,16 @@ package user
 
 import (
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
+	"github.com/Micheli97/crud-campeonato-golang/model/repository"
 	"github.com/Micheli97/crud-campeonato-golang/model/user"
 )
 
-func NewUserDomainService() UserDomainService {
-	return &userDomainService{}
+func NewUserDomainService(userRepository repository.UserRepository) UserDomainService {
+	return &userDomainService{userRepository}
 }
 
 type userDomainService struct {
+	userRepository repository.UserRepository
 }
 
 type UserDomainService interface {

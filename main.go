@@ -6,7 +6,14 @@ import (
 )
 
 func main() {
-	postgres.NewDatabasePostgres()
-	router.SetupRouter()
+	databasePostgres, err := postgres.NewDatabasePostgres()
+
+	if err != nil {
+		return
+	}
+
+	userHandler := initDependencies(databasePostgres)
+
+	router.SetupRouter(userHandler)
 
 }
