@@ -26,3 +26,7 @@ func (user *userDomain) GetName() string {
 func (user *userDomain) SetPassword(password string) {
 	user.Password = password
 }
+
+func (user *userDomain) GetID() string {
+	return user.ID
+}

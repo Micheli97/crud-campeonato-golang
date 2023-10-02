@@ -9,7 +9,7 @@ import (
 func ConverteToDomainResponse(userDomain user.UserDomainInterface) response.UserResponse {
 	return response.UserResponse{
 		ID:    "",
-		Email: userDomain.GetEmail(),
-		Name:  userDomain.GetName(),
+		Email: "paula@gmail.com",
+		Name:  "Paula",
 	}
 }

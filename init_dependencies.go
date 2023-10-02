@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	userHandler "github.com/Micheli97/crud-campeonato-golang/handler/user"
-	repository2 "github.com/Micheli97/crud-campeonato-golang/model/repository"
+	repository2 "github.com/Micheli97/crud-campeonato-golang/model/repository/user"
 	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
 )
 

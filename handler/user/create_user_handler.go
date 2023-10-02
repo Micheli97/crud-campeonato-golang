@@ -31,12 +31,14 @@ func (userHandler *userHandlerInterface) CreateUserHandler(context *gin.Context)
 
 	domain := user2.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name)
 
-	if err := userHandler.service.CreateUser(domain); err != nil {
+	domainResult, err := userHandler.service.CreateUser(domain)
+
+	if err != nil {
 		context.JSON(err.Code, err)
 	}
 
 	logger.Info("User created successfully",
 		zap.String("journey", "createUser"))
 
-	context.JSON(http.StatusOK, view.ConverteToDomainResponse(domain))
+	context.JSON(http.StatusOK, view.ConverteToDomainResponse(domainResult))
 }
