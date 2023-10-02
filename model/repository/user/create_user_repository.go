@@ -14,31 +14,14 @@ func (user *userRespository) CreateUser(userDomain user2.UserDomainInterface) (u
 
 	value := user3.ConvertDomainToEntity(userDomain)
 
-	query := `INSERT INTO user(name, email, password)
-	VALUES(%s, %s, %s)`
+	query := `INSERT INTO t_user(name, email, password)
+	VALUES($1, $2, $3) RETURNING id`
 
-	_, err := db.Query(query, value.Name, value.Email, value.Password)
-
+	err := db.QueryRow(query, value.Name, value.Email, value.Password).Scan(&value.ID)
 	if err != nil {
 		logger.Error("Ocorreu um erro ao tentar cadastrar usuário no banco de dados", err)
 	}
 
-	//rows, err := db.Query(`SELECT * from TABLE ( user )`)
-	//
-	//for rows.Next() {
-	//	var id string
-	//	err = rows.Scan(&id)
-	//
-	//	if err != nil {
-	//		break
-	//	}
-	//
-	//	value.ID = id
-	//
-	//}
-	//
-	//return user3.ConvertEntityToDomain(*value), nil
-
-	return nil, nil
+	return user3.ConvertEntityToDomain(*value), nil
 
 }

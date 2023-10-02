@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	PostgressCredential = "POSTGRESS_CREDENTIAL"
+	PostgressCredential = "POSTGRES_CREDENTIAL"
 )
 
 func NewDatabasePostgres() (*sql.DB, error) {
@@ -22,9 +22,11 @@ func NewDatabasePostgres() (*sql.DB, error) {
 		return nil, err
 	}
 
-	defer db.Close()
+	//defer db.Close()
 
-	db.Ping()
+	if err := db.Ping(); err != nil {
+		logger.Error("Erro na conexão com o PostgreSQL:", err)
+	}
 
 	logger.Info("Banco de dados iniciado....")
 
