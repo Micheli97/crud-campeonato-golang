@@ -3,16 +3,16 @@ package user
 import (
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
 	"github.com/Micheli97/crud-campeonato-golang/config/logger"
-	user3 "github.com/Micheli97/crud-campeonato-golang/model/repository/entity/convert/user"
-	user2 "github.com/Micheli97/crud-campeonato-golang/model/user"
+	user2 "github.com/Micheli97/crud-campeonato-golang/model/repository/convert/user"
+	"github.com/Micheli97/crud-campeonato-golang/model/user"
 )
 
-func (user *userRespository) CreateUser(userDomain user2.UserDomainInterface) (user2.UserDomainInterface, *rest_err.RestErr) {
+func (user *userRespository) CreateUser(userDomain user.UserDomainInterface) (user.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init createUser repository")
 
 	db := user.databaseConnection
 
-	value := user3.ConvertDomainToEntity(userDomain)
+	value := user2.ConvertDomainToEntity(userDomain)
 
 	query := `INSERT INTO t_user(name, email, password)
 	VALUES($1, $2, $3) RETURNING id`
@@ -22,6 +22,5 @@ func (user *userRespository) CreateUser(userDomain user2.UserDomainInterface) (u
 		logger.Error("Ocorreu um erro ao tentar cadastrar usuário no banco de dados", err)
 	}
 
-	return user3.ConvertEntityToDomain(*value), nil
-
+	return user2.ConvertEntityToDomain(*value), nil
 }

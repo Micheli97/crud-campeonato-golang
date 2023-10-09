@@ -10,12 +10,14 @@ func UserRouters(router *gin.RouterGroup, userHandler userHandler.UserHandlerInt
 
 	routerGroup := router.Group("/user")
 
-	routerGroup.GET("/", userHandler.GetUserHandler)
+	routerGroup.GET("/getUserById/:userId", userHandler.FindUserByIDHandler)
 
-	routerGroup.POST("/", userHandler.CreateUserHandler)
+	routerGroup.GET("/getUserByEmail/:userEmail", userHandler.FindUserByEmailHandler)
 
-	routerGroup.PUT("/", userHandler.UpdateUserHandler)
+	routerGroup.POST("/createUser/", userHandler.CreateUserHandler)
 
-	routerGroup.DELETE("/", userHandler.DeleteUserHandler)
+	routerGroup.PUT("/updateUser/:userId", userHandler.UpdateUserHandler)
+
+	routerGroup.DELETE("/:userId", userHandler.DeleteUserHandler)
 
 }

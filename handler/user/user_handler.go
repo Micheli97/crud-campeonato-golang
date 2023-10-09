@@ -14,7 +14,8 @@ func NewUserHandlerInterface(serviceInterface user.UserDomainService) UserHandle
 type UserHandlerInterface interface {
 	CreateUserHandler(context *gin.Context)
 	DeleteUserHandler(context *gin.Context)
-	GetUserHandler(context *gin.Context)
+	FindUserByIDHandler(context *gin.Context)
+	FindUserByEmailHandler(context *gin.Context)
 	UpdateUserHandler(context *gin.Context)
 }
 

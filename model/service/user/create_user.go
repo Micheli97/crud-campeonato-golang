@@ -11,7 +11,6 @@ import (
 func (user *userDomainService) CreateUser(
 	userDomain user.UserDomainInterface,
 ) (user.UserDomainInterface, *rest_err.RestErr) {
-
 	logger.Info("Init CreateUser handler",
 		zap.String("journey", "createUser"))
 	utils.EncryptPassword(userDomain)
