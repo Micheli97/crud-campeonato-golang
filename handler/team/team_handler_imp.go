@@ -1,6 +1,10 @@
 package team
 
 import (
+	team2 "github.com/Micheli97/crud-campeonato-golang/domain/team"
+	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
+	"github.com/Micheli97/crud-campeonato-golang/service/team"
+	"github.com/Micheli97/crud-campeonato-golang/view"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
