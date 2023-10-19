@@ -3,6 +3,7 @@ package player
 import (
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
 	"github.com/Micheli97/crud-campeonato-golang/domain/player"
+	player2 "github.com/Micheli97/crud-campeonato-golang/repository/player"
 )
 
 func NewPlayerService(repository player2.PlayerRepositoryInterface) PlayerServiceInterface {
@@ -31,4 +32,4 @@ func (player *playerService) UpdatePlayer(id string, playerDomain player.PlayerD
 
 func (player *playerService) DeletePlayer(id string) *rest_err.RestErr {
 	return player.playerRepository.DeletePlayer(id)
-
+}

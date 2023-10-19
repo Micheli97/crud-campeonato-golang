@@ -1,6 +1,9 @@
 package view
 
-import "github.com/Micheli97/crud-campeonato-golang/domain/player"
+import (
+	"github.com/Micheli97/crud-campeonato-golang/domain/player"
+	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
+)
 
 func ConvertPlayerDomainToResponse(playerDomain player.PlayerDomainInterface) request.PlayerRequest {
 	return request.PlayerRequest{
