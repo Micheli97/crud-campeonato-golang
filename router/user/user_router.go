@@ -1,6 +1,7 @@
 package user
 
 import (
+	"github.com/Micheli97/crud-campeonato-golang/domain/login"
 	user2 "github.com/Micheli97/crud-campeonato-golang/handler/user"
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +11,7 @@ func UserRouters(router *gin.RouterGroup, userHandler user2.UserHandlerInterface
 
 	routerGroup := router.Group("/user")
 
-	routerGroup.GET("/getUserById/:userId", userHandler.FindUserByIDHandler)
+	routerGroup.GET("/getUserById/:userId", login.MiddlewareVerifyToken, userHandler.FindUserByIDHandler)
 
 	routerGroup.GET("/getUserByEmail/:userEmail", userHandler.FindUserByEmailHandler)
 

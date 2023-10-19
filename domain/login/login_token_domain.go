@@ -3,6 +3,7 @@ package login
 import (
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 	"os"
 	"strings"
 	"time"
@@ -33,8 +34,9 @@ func (login *loginDomain) GenerateToken() (string, *rest_err.RestErr) {
 	return tokenString, nil
 }
 
-func VerifyToken(tokenValue string) (LoginDomainInterface, *rest_err.RestErr) {
+func MiddlewareVerifyToken(context *gin.Context) {
 	secret := os.Getenv(JWT_SECRET_KEY)
+	tokenValue := RemoveBearerPrefix(context.Request.Header.Get("token"))
 
 	token, err := jwt.Parse(RemoveBearerPrefix(tokenValue), func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); ok {
@@ -44,21 +46,16 @@ func VerifyToken(tokenValue string) (LoginDomainInterface, *rest_err.RestErr) {
 	})
 
 	if err != nil {
-		return nil, rest_err.NewUnauthorizedRequestError("Invalid token")
+		errRest := rest_err.NewUnauthorizedRequestError("invalid token")
+		context.JSON(errRest.Code, errRest)
 	}
 
-	claims, ok := token.Claims.(jwt.MapClaims)
+	_, ok := token.Claims.(jwt.MapClaims)
 
 	if !ok || !token.Valid {
-		return nil, rest_err.NewUnauthorizedRequestError("Invalid token")
+		errRest := rest_err.NewUnauthorizedRequestError("invalid token")
+		context.JSON(errRest.Code, errRest)
 	}
-
-	return &loginDomain{
-		ID:       claims["id"].(string),
-		Name:     claims["name"].(string),
-		Email:    claims["email"].(string),
-		Password: "",
-	}, nil
 }
 
 func RemoveBearerPrefix(token string) string {
