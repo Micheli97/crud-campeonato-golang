@@ -1,6 +1,9 @@
 package player
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Micheli97/crud-campeonato-golang/handler/player"
+	"github.com/gin-gonic/gin"
+)
 
 func PLayerRouter(router *gin.RouterGroup, playerHandler player.PlayerHandlerInterface) {
 
