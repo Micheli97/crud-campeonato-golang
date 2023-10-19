@@ -1,20 +1,9 @@
 package user
 
 import (
-	"database/sql"
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
-	"github.com/Micheli97/crud-campeonato-golang/model/user"
+	"github.com/Micheli97/crud-campeonato-golang/domain/user"
 )
-
-func NewUserRespository(database *sql.DB) UserRepository {
-	return &userRespository{
-		database,
-	}
-}
-
-type userRespository struct {
-	databaseConnection *sql.DB
-}
 
 type UserRepository interface {
 	CreateUser(domainInterface user.UserDomainInterface) (user.UserDomainInterface, *rest_err.RestErr)

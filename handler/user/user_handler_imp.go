@@ -3,9 +3,9 @@ package user
 import (
 	"github.com/Micheli97/crud-campeonato-golang/config/logger"
 	"github.com/Micheli97/crud-campeonato-golang/config/validation"
+	user2 "github.com/Micheli97/crud-campeonato-golang/domain/user"
 	"github.com/Micheli97/crud-campeonato-golang/handler/model/request"
-	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
-	user2 "github.com/Micheli97/crud-campeonato-golang/model/user"
+	"github.com/Micheli97/crud-campeonato-golang/service/user"
 	"github.com/Micheli97/crud-campeonato-golang/view"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

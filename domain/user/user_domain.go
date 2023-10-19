@@ -16,9 +16,11 @@ func (user *userDomain) SetID(id string) {
 func (user *userDomain) GetEmail() string {
 	return user.Email
 }
+
 func (user *userDomain) GetPassword() string {
 	return user.Password
 }
+
 func (user *userDomain) GetName() string {
 	return user.Name
 }
