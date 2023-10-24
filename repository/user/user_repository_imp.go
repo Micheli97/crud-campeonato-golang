@@ -2,11 +2,14 @@ package user
 
 import (
 	"database/sql"
+	"fmt"
 	rest_err "github.com/Micheli97/crud-campeonato-golang/config/error"
 	"github.com/Micheli97/crud-campeonato-golang/config/logger"
 	user3 "github.com/Micheli97/crud-campeonato-golang/domain/user"
 	user4 "github.com/Micheli97/crud-campeonato-golang/entity/user"
 	user2 "github.com/Micheli97/crud-campeonato-golang/repository/convert/user"
+	"strconv"
+	"strings"
 )
 
 func (user *userRespository) CreateUser(userDomain user3.UserDomainInterface) (user3.UserDomainInterface, *rest_err.RestErr) {
@@ -84,10 +87,9 @@ func (user *userRespository) UpdateUser(id string, userDomain user3.UserDomainIn
 	logger.Info("Init UpdateUser repository")
 
 	db := user.databaseConnection
+	consulta, valores := gerarConsultaAtualizacao(userDomain, id)
 
-	query := `UPDATE  t_user SET name=$1, email=$2 WHERE id=$3`
-
-	_, err := db.Exec(query, userDomain.GetName(), userDomain.GetEmail(), id)
+	_, err := db.Exec(consulta, valores...)
 
 	if err != nil {
 		logger.Error("Ocorreu um erro ao tentar obter usuário no banco de dados", err)
@@ -95,6 +97,34 @@ func (user *userRespository) UpdateUser(id string, userDomain user3.UserDomainIn
 	}
 
 	return nil
+}
+
+func gerarConsultaAtualizacao(user user3.UserDomainInterface, idUser string) (string, []interface{}) {
+	var filtros = map[string]string{
+		"name":  user.GetName(),
+		"email": user.GetEmail(),
+	}
+
+	campos := make([]string, 0)
+	valores := make([]interface{}, 0)
+
+	for filtro, valor := range filtros {
+		if valor != "" {
+			campos = append(campos, filtro+" = $"+strconv.Itoa(len(valores)+1))
+			valores = append(valores, valor)
+		}
+	}
+
+	consulta := fmt.Sprintf("UPDATE t_user SET %s WHERE id = $%d", strings.Join(campos, ", "), len(valores)+1)
+
+	id, err := strconv.ParseInt(idUser, 10, 32)
+	if err != nil {
+		logger.Error("Erro ao converter valor", err)
+		return "", nil
+	}
+	valores = append(valores, int32(id))
+
+	return consulta, valores
 }
 
 func NewUserRespository(database *sql.DB) UserRepository {
