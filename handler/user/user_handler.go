@@ -1,24 +1,7 @@
 package user
 
-import (
-	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
-	"github.com/gin-gonic/gin"
-)
+import "github.com/Micheli97/crud-campeonato-golang/service/user"
 
-func NewUserHandlerInterface(serviceInterface user.UserDomainService) UserHandlerInterface {
-	return &userHandlerInterface{
-		service: serviceInterface,
-	}
-}
-
-type UserHandlerInterface interface {
-	CreateUserHandler(context *gin.Context)
-	DeleteUserHandler(context *gin.Context)
-	FindUserByIDHandler(context *gin.Context)
-	FindUserByEmailHandler(context *gin.Context)
-	UpdateUserHandler(context *gin.Context)
-}
-
-type userHandlerInterface struct {
+type userHandler struct {
 	service user.UserDomainService
 }
