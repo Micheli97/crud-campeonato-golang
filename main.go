@@ -13,7 +13,9 @@ func main() {
 	}
 
 	userHandler := initDependencies(databasePostgres)
+	loginHandler := initLoginDependencies(databasePostgres)
+	teamHandler := initTeamDependencies(databasePostgres)
 
-	router.SetupRouter(userHandler)
+	router.SetupRouter(userHandler, loginHandler, teamHandler)
 
 }
