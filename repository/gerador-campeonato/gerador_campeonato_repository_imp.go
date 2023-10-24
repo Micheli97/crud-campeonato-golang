@@ -7,6 +7,7 @@ import (
 	gerador_campeonato "github.com/Micheli97/crud-campeonato-golang/domain/gerador-campeonato"
 	gerador_campeonato2 "github.com/Micheli97/crud-campeonato-golang/entity/gerador-campeonato"
 	gerador_campeonato3 "github.com/Micheli97/crud-campeonato-golang/repository/convert/gerador-campeonato"
+	"math/rand"
 )
 
 func (repository *geradorCampeonatoRepository) GerarCampeonatoHandler() *rest_err.RestErr {
@@ -71,17 +72,48 @@ func (repository *geradorCampeonatoRepository) GerarCampeonatoHandler() *rest_er
 
 	}
 
-	queryNamePlayers := `SELECT name FROM t_player`
+	queryNameTeam := `SELECT name FROM t_team`
 
-	resultPlayerName, err := db.Query(queryNamePlayers)
+	resultNameTeam, err := db.Query(queryNameTeam)
 
 	if err != nil {
 		return rest_err.NewInternalServerError(err.Error())
 	}
 
-	//  Crian função para gerar o campeonato
+	var teams []string
+
+	for resultNameTeam.Next() {
+
+		var team string
+
+		err = resultPlayer.Scan(&team)
+
+		if err != nil {
+			break
+		}
+
+		teams = append(teams, team)
+	}
+
+	timesSorteados := geraCampeonato(teams)
+
+	// Como adicionar no banco?
 
 	return nil
+
+}
+
+func geraCampeonato(times []string) []string {
+	var timesRegistrados []string
+
+	timesDisponiveis := times
+
+	for len(timesDisponiveis) > 0 && len(timesRegistrados) < 8 {
+		indiceSorteado := rand.Int() * len(timesDisponiveis)
+
+		timesRegistrados = append(timesRegistrados, timesRegistrados[indiceSorteado])
+	}
+	return timesRegistrados
 
 }
 
