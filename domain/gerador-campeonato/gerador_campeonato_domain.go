@@ -5,9 +5,19 @@ type geradorCampeonatoDomain struct {
 	timeB string
 }
 
-func (g *geradorCampeonatoDomain) GetTime() []string {
+func (g *geradorCampeonatoDomain) GetTimes() []string {
 	listaJogos := []string{g.timeA, g.timeB}
 
 	return listaJogos
+
+}
+
+func (g *geradorCampeonatoDomain) GetTimeA() string {
+	return g.timeA
+
+}
+
+func (g *geradorCampeonatoDomain) GetTimeB() string {
+	return g.timeB
 
 }

@@ -7,12 +7,26 @@ import (
 )
 
 func (handler *geradorCampeonatoHandler) GerarCampeonatoHandler(context *gin.Context) {
+
+	if err := handler.service.GerarCampeonatoHandler(); err != nil {
+		context.JSON(http.StatusUnauthorized, err.Error())
+		return
+	}
+
 	context.JSON(http.StatusOK, "Campeonato gerado com sucesso!")
 
 }
 
 func (handler *geradorCampeonatoHandler) ListarTimesCampeonatoHandler(context *gin.Context) {
-	context.JSON(http.StatusOK, "Time A x Time B")
+
+	times, err := handler.service.ListarTimesCampeonatoHandler()
+
+	if err != nil {
+		context.JSON(http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	context.JSON(http.StatusOK, times)
 }
 
 func NewGeradorHandler(service gerador_campeonato.GeradorCampeonatoServiceInterface) GeradorCampeonatoInterface {
