@@ -1,5 +1,5 @@
 package gerador_campeonato
 
-type GeradorCampeonatoInterface interface {
+type GeradorCampeonatoDomainInterface interface {
 	GetTime() []string
 }

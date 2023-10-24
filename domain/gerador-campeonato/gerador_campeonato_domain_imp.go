@@ -1,5 +1,5 @@
 package gerador_campeonato
 
-func NewGeradorCampeonatoDomain() GeradorCampeonatoInterface {
+func NewGeradorCampeonatoDomain() GeradorCampeonatoDomainInterface {
 	return &geradorCampeonatoDomain{}
 }
