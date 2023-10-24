@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	gerador_campeonato "github.com/Micheli97/crud-campeonato-golang/handler/gerador-campeonato"
 	login2 "github.com/Micheli97/crud-campeonato-golang/handler/login"
 	team2 "github.com/Micheli97/crud-campeonato-golang/handler/team"
 	user2 "github.com/Micheli97/crud-campeonato-golang/handler/user"
@@ -31,4 +32,8 @@ func initTeamDependencies(database *sql.DB) team2.TeamHandlerInterface {
 	teamService := team3.TeamService(teamRepository)
 	return team2.NewTeamHandler(teamService)
 
+}
+
+func initGeradorDependencies() gerador_campeonato.GeradorCampeonatoInterface {
+	return gerador_campeonato.NewGeradorHandler()
 }
