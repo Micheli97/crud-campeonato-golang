@@ -7,12 +7,12 @@ import (
 )
 
 func (service *geradorCampeonatoService) GerarCampeonatoHandler() *rest_err.RestErr {
-	return nil
+	return service.GerarCampeonatoHandler()
 
 }
 
 func (service *geradorCampeonatoService) ListarTimesCampeonatoHandler() ([]gerador_campeonato.GeradorCampeonatoDomainInterface, *rest_err.RestErr) {
-	return nil, nil
+	return service.ListarTimesCampeonatoHandler()
 }
 
 func NewGeradorCampeonatoService(repository gerador_campeonato2.GeradorCampeonatoRepositoryInterface) GeradorCampeonatoServiceInterface {
