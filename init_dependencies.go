@@ -2,13 +2,14 @@ package main
 
 import (
 	"database/sql"
-	userHandler "github.com/Micheli97/crud-campeonato-golang/handler/user"
-	repository2 "github.com/Micheli97/crud-campeonato-golang/model/repository/user"
-	"github.com/Micheli97/crud-campeonato-golang/model/service/user"
+	user2 "github.com/Micheli97/crud-campeonato-golang/handler/user"
+	user3 "github.com/Micheli97/crud-campeonato-golang/repository/user"
+	"github.com/Micheli97/crud-campeonato-golang/service/user"
 )
 
-func initDependencies(database *sql.DB) userHandler.UserHandlerInterface {
-	repository := repository2.NewUserRespository(database)
+func initDependencies(database *sql.DB) user2.UserHandlerInterface {
+	repository := user3.NewUserRespository(database)
 	service := user.NewUserDomainService(repository)
-	return userHandler.NewUserHandlerInterface(service)
+
+	return user2.NewUserHandlerInterface(service)
 }
