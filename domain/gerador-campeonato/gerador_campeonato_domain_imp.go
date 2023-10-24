@@ -1,5 +1,5 @@
 package gerador_campeonato
 
-func NewGeradorCampeonatoDomain() GeradorCampeonatoDomainInterface {
-	return &geradorCampeonatoDomain{}
+func NewGeradorCampeonatoDomain(timeA string, timeB string) GeradorCampeonatoDomainInterface {
+	return &geradorCampeonatoDomain{timeA: timeA, timeB: timeB}
 }

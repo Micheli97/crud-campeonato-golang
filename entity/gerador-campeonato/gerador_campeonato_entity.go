@@ -1,6 +1,6 @@
 package gerador_campeonato
 
-type geradorCampeonatoEntity struct {
+type GeradorCampeonatoEntity struct {
 	TimeA string
 	TimeB string
 }
