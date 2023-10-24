@@ -6,9 +6,11 @@ import (
 	login2 "github.com/Micheli97/crud-campeonato-golang/handler/login"
 	team2 "github.com/Micheli97/crud-campeonato-golang/handler/team"
 	user2 "github.com/Micheli97/crud-campeonato-golang/handler/user"
+	gerador_campeonato2 "github.com/Micheli97/crud-campeonato-golang/repository/gerador-campeonato"
 	"github.com/Micheli97/crud-campeonato-golang/repository/login"
 	"github.com/Micheli97/crud-campeonato-golang/repository/team"
 	user3 "github.com/Micheli97/crud-campeonato-golang/repository/user"
+	gerador_campeonato3 "github.com/Micheli97/crud-campeonato-golang/service/gerador-campeonato"
 	login3 "github.com/Micheli97/crud-campeonato-golang/service/login"
 	team3 "github.com/Micheli97/crud-campeonato-golang/service/team"
 	"github.com/Micheli97/crud-campeonato-golang/service/user"
@@ -34,6 +36,8 @@ func initTeamDependencies(database *sql.DB) team2.TeamHandlerInterface {
 
 }
 
-func initGeradorDependencies() gerador_campeonato.GeradorCampeonatoInterface {
-	return gerador_campeonato.NewGeradorHandler()
+func initGeradorDependencies(database *sql.DB) gerador_campeonato.GeradorCampeonatoInterface {
+	geradorRepository := gerador_campeonato2.NewGeradorCampeonatoRepository(database)
+	geradorService := gerador_campeonato3.NewGeradorCampeonatoService(geradorRepository)
+	return gerador_campeonato.NewGeradorHandler(geradorService)
 }

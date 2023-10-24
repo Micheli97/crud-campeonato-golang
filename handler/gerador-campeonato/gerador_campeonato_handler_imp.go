@@ -1,6 +1,7 @@
 package gerador_campeonato
 
 import (
+	gerador_campeonato "github.com/Micheli97/crud-campeonato-golang/service/gerador-campeonato"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -14,6 +15,6 @@ func (handler *geradorCampeonatoHandler) ListarTimesCampeonatoHandler(context *g
 	context.JSON(http.StatusOK, "Time A x Time B")
 }
 
-func NewGeradorHandler() GeradorCampeonatoInterface {
-	return &geradorCampeonatoHandler{}
+func NewGeradorHandler(service gerador_campeonato.GeradorCampeonatoServiceInterface) GeradorCampeonatoInterface {
+	return &geradorCampeonatoHandler{service: service}
 }
